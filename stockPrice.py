@@ -8,12 +8,30 @@ from tensorflow.keras.layers import LSTM, Dense, Dropout
 import plotly.graph_objects as go
 from sklearn.metrics import mean_absolute_error, mean_squared_error
 
+
+st.write(
+    "Welcome to this personal projects portfolio.\n\n"
+    "In this application, I utilize machine learning techniques to provide insights into stock price movements.\n\n"
+    "#### Key Features :\n"
+    "- **LSTM Model** : A Long Short-Term Memory (LSTM) model is employed to predict future stock prices based on historical data.\n"
+    "- **Interactive Interface** : Built with **Streamlit**\n"
+    "- **Data Handling** : I use **pandas** and **numpy** for efficient data manipulation and analysis.\n"
+    "- **Visualization** : Interactive visualizations with **Plotly** enable exploration of stock trends and forecasts.\n"
+    "- **Performance Metrics**: Key metrics like Mean Absolute Error (MAE) and Root Mean Squared Error (RMSE) are displayed to assess prediction accuracy.\n\n"
+    "#### Libraries Used :\n"
+    "- **yfinance**: This library retrieves real-time stock data from Yahoo Finance.\n"
+    "- **TensorFlow/Keras** : These frameworks are used for designing and training the LSTM model, incorporating **Dense** and **Dropout** layers.\n\n"
+    "I invite you to explore the application and gain insights into stock price forecasting.\n\n"
+    "Noë Dréau - 2024"
+)
+
 # Application title and description
 st.title("Stock Price Forecasting and Comparison")
 st.write("""
-This application uses an LSTM (Long Short-Term Memory) model to forecast stock prices based on historical data. 
+ 
 You can choose the stocks you're interested in and set the forecasting period for a personalized analysis.
 """)
+
 
 # List of popular tickers
 default_tickers = {
