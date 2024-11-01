@@ -11,14 +11,14 @@ from sklearn.metrics import mean_absolute_error, mean_squared_error
 st.write(
     "Welcome to my project portfolio!\n\n"
     "In this app, I use machine learning to analyze stock price movements.\n\n"
-    "### Key Features:\n"
-    "- **LSTM Model**: A Long Short-Term Memory (LSTM) model predicts future stock prices based on historical data. Why LSTM? LSTMs are a type of recurrent neural network (RNN) designed for sequence prediction, making them well-suited for time series data like stock prices.\n"
-    "- **Data Handling**: Use of **pandas** and **numpy**.\n"
-    "- **Visualization**: I use **Plotly** to create interactive charts for trends and forecasts.\n"
+    "### Key Features :\n"
+    "- **LSTM Model** : A Long Short-Term Memory (LSTM) model predicts future stock prices based on historical data. Why LSTM ? LSTMs are a type of recurrent neural network (RNN) designed for sequence prediction, making them well-suited for time series data like stock prices.\n"
+    "- **Data Handling** : Use of **pandas** and **numpy**.\n"
+    "- **Visualization** : I use **Plotly** to create interactive charts for trends and forecasts.\n"
     "- **Performance Metrics**: I display Mean Absolute Error (MAE) and Root Mean Squared Error (RMSE) to assess accuracy.\n\n"
-    "### Libraries Used:\n"
+    "### Libraries Used :\n"
     "- **yfinance**: I use this to retrieve real-time stock data from Yahoo Finance.\n"
-    "- **TensorFlow/Keras**: I design and train the LSTM model with these open-source frameworks.\n\n"
+    "- **TensorFlow/Keras** : I design and train the LSTM model with these open-source frameworks.\n\n"
     
     "Noë Dréau - 2024"
 )
