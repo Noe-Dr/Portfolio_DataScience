@@ -160,9 +160,13 @@ if tickers:
     fig = go.Figure()
     for ticker in tickers:
         fig.add_trace(go.Scatter(x=data.index, y=data[ticker], mode='lines', name=f'{ticker} Historical Data', line=dict(color='blue')))
-        fig.add_trace(go.Scatter(x=moving_average.index, y=moving_average[ticker], mode='lines', name=f'{ticker} {moving_average_window}-Day MA', line=dict(color='orange', dash='dash')))
+        fig.add_trace(go.Scatter(x=moving_average.index, y=moving_average[ticker], mode='lines', name=f'{ticker} {moving_average_window}-Day MA', line=dict(color='green', dash='dot')))
     
     fig.update_layout(title="Stock Prices with Moving Average", xaxis_title="Date", yaxis_title="Price", legend=dict(x=0, y=1))
+    st.write("Nota : "
+    "A moving average is a method used to smooth out price data. It calculates the average price over a specific period.\n\n"
+    "A greater moving average is less sensitive to recent price changes, providing a clearer view of the overall trend."
+    )
     st.plotly_chart(fig)
 
     # Forecast for each ticker
@@ -192,7 +196,7 @@ if tickers:
         # Plot combined historical and forecast data with different colors
         fig = go.Figure()
         fig.add_trace(go.Scatter(x=data.index, y=data[ticker], mode='lines', name='Historical Data', line=dict(color='blue')))
-        fig.add_trace(go.Scatter(x=forecast_df.index, y=forecast_df[ticker], mode='lines', name='Forecast', line=dict(color='orange', dash='dash')))
+        fig.add_trace(go.Scatter(x=forecast_df.index, y=forecast_df[ticker], mode='lines', name='Forecast', line=dict(color='orange')))
         fig.update_layout(title=f"{ticker} Price Forecast", xaxis_title="Date", yaxis_title="Price", legend=dict(x=0, y=1))
         st.plotly_chart(fig)
 
