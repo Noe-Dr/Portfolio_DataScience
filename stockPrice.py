@@ -10,7 +10,7 @@ from sklearn.metrics import mean_absolute_error, mean_squared_error
 
 
 st.write(
-    "Welcome to my project portfolio.\n\n"
+    "Welcome to my projects portfolio.\n\n"
     "In this application, I utilize machine learning techniques to provide insights into stock price movements.\n\n"
     "#### Key Features :\n"
     "- **LSTM Model** : A Long Short-Term Memory (LSTM) model is employed to predict future stock prices based on historical data.\n"
