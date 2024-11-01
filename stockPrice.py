@@ -8,20 +8,19 @@ from tensorflow.keras.layers import LSTM, Dense, Dropout
 import plotly.graph_objects as go
 from sklearn.metrics import mean_absolute_error, mean_squared_error
 
-
 st.write(
-    "Welcome to my projects portfolio.\n\n"
-    "In this application, I utilize machine learning techniques to provide insights into stock price movements.\n\n"
-    "#### Key Features :\n"
-    "- **LSTM Model** : A Long Short-Term Memory (LSTM) model is employed to predict future stock prices based on historical data.\n"
-    "- **Interactive Interface** : Built with **Streamlit**\n"
-    "- **Data Handling** : I use **pandas** and **numpy** for efficient data manipulation and analysis.\n"
-    "- **Visualization** : Interactive visualizations with **Plotly** enable exploration of stock trends and forecasts.\n"
-    "- **Performance Metrics**: Key metrics like Mean Absolute Error (MAE) and Root Mean Squared Error (RMSE) are displayed to assess prediction accuracy.\n\n"
-    "#### Libraries Used :\n"
-    "- **yfinance**: This library retrieves real-time stock data from Yahoo Finance.\n"
-    "- **TensorFlow/Keras** : These frameworks are used for designing and training the LSTM model, incorporating **Dense** and **Dropout** layers.\n\n"
-    "I invite you to explore the application and gain insights into stock price forecasting.\n\n"
+    "Welcome to my project portfolio!\n\n"
+    "In this app, I use machine learning to analyze stock price movements.\n\n"
+    "### Key Features:\n"
+    "- **LSTM Model**: I predict future stock prices based on historical data.\n"
+    "- **Data Handling**: I utilize **pandas** and **numpy** for efficient analysis.\n"
+    "- **Visualization**: I use **Plotly** to create interactive charts for trends and forecasts.\n"
+    "- **Performance Metrics**: I display MAE and RMSE to assess accuracy.\n\n"
+    "### Libraries Used:\n"
+    "- **yfinance**: I use this to retrieve real-time stock data (from Yahoo finance).\n"
+    "- **TensorFlow/Keras**: I design and train the LSTM model with these frameworks.\n\n"
+    "Feel free to explore and discover insights into stock forecasting.\n\n"
+    
     "Noë Dréau - 2024"
 )
 
@@ -50,7 +49,7 @@ custom_ticker = st.text_input("Enter a custom ticker of any additional company")
 selected_tickers = st.multiselect(
     "Select companies to compare", 
     list(default_tickers.keys()), 
-    default=['Google', 'Apple']
+    default=['Tesla', 'Apple']
 )
 
 # Convert selected company names to ticker symbols
@@ -64,7 +63,7 @@ if custom_ticker:
 st.sidebar.header("Analysis Options")
 period_option = st.sidebar.selectbox(
     "Select historical analysis period",
-    ['6mo', '1y', '5y', 'max']
+    ['1y', '2y', '5y', 'max']
 )
 
 # User-defined forecast days
@@ -72,6 +71,17 @@ forecast_days = st.sidebar.number_input("Number of days to forecast", min_value=
 
 # User-defined moving average window
 moving_average_window = st.sidebar.number_input("Moving Average Window (days)", min_value=1, max_value=100, value=7)
+
+# Define a color map for the tickers
+colors = {
+    'GOOGL': 'purple',
+    'AAPL': 'green',
+    'AMZN': 'orange',
+    'MSFT': 'red',
+    'TSLA': 'blue',
+    'META': 'cyan',
+    'Custom': 'magenta'  # Add a color for custom tickers if needed
+}
 
 # Function to fetch and clean stock data
 def fetch_stock_data(ticker, period):
@@ -157,16 +167,42 @@ if tickers:
     moving_average = data.rolling(window=moving_average_window).mean()
 
     # Display the chart with closing prices and moving average for all selected companies
+    show_historical_data = st.sidebar.checkbox("Show Historical Price Data", value=True)
+
     fig = go.Figure()
-    for ticker in tickers:
-        fig.add_trace(go.Scatter(x=data.index, y=data[ticker], mode='lines', name=f'{ticker} Historical Data', line=dict(color='blue')))
-        fig.add_trace(go.Scatter(x=moving_average.index, y=moving_average[ticker], mode='lines', name=f'{ticker} {moving_average_window}-Day MA', line=dict(color='green', dash='dot')))
-    
+    if show_historical_data:
+        for ticker in tickers:
+            # Use the defined color for historical data
+            fig.add_trace(go.Scatter(
+                x=data.index,
+                y=data[ticker],
+                mode='lines',
+                name=f'{ticker} Historical Data',
+                line=dict(color=colors.get(ticker, 'black'))  # Default to black if ticker not in colors
+            ))
+
+    # Checkbox for displaying moving averages
+    show_moving_average = st.sidebar.checkbox("Show Moving Averages", value=True)
+
+    if show_moving_average:
+        for ticker in tickers:
+            # Use the same color for the moving average
+            fig.add_trace(go.Scatter(
+                x=moving_average.index,
+                y=moving_average[ticker],
+                mode='lines',
+                name=f'{ticker} {moving_average_window}-Day MA',
+                line=dict(color=colors.get(ticker, 'black'), dash='dot')  # Same color as historical data
+            ))
+
+ 
     fig.update_layout(title="Stock Prices with Moving Average", xaxis_title="Date", yaxis_title="Price", legend=dict(x=0, y=1))
-    st.write("Nota : "
-    "A moving average is a method used to smooth out price data. It calculates the average price over a specific period.\n\n"
-    "A greater moving average is less sensitive to recent price changes, providing a clearer view of the overall trend."
+
+    st.write("Nota: \n"
+        "A moving average is a method used to smooth out price data. It calculates the average price over a specific period.\n"
+        "A greater moving average is less sensitive to recent price changes, providing a clearer view of the overall trend."
     )
+
     st.plotly_chart(fig)
 
     # Forecast for each ticker
