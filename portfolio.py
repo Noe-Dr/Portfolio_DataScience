@@ -4,7 +4,7 @@ import streamlit as st
 st.set_page_config(page_title="Portfolio - Personal Projects", layout="centered")
 
 # Titre principal
-st.title("🎨 Portfolio - Personal Projects")
+st.title("Portfolio - Personal Projects")
 
 # Description
 st.write(
@@ -36,7 +36,7 @@ st.write(
 st.markdown("[View the project ➡️](https://portfoliodatascience-noe-dreau-basketballproject.streamlit.app)", unsafe_allow_html=True)
 
 # Section pour les futurs projets
-st.header("📂 Upcoming Projects")
+st.header("Upcoming Projects")
 st.write("Stay tuned for more exciting projects to be added here soon!")
 
 # Footer
